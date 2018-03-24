@@ -31,7 +31,7 @@ public class AutoMobileController {
 	
 	@RequestMapping(value="/automobiles",method=RequestMethod.POST)	
 	public List<AutoMobileModel> addAutoMobile(@RequestBody AutoMobileModel autoMobile) {
-		logger.info("Entry to post method:"+autoMobile);
+		logger.info("Entry to post method, printing automobile model:"+autoMobile);
 		List<AutoMobileModel> autoMobileModelList=new ArrayList<AutoMobileModel>();
 		autoMobileModelList.add(this.autoMobileService.addAutoMobile(autoMobile));
 		return autoMobileModelList;    
