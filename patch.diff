@@ -1,0 +1,530 @@
+From 7aa84f5b09f368f9f52302622b78f304e9c817c0 Mon Sep 17 00:00:00 2001
+From: snigdhesh <snigdhesh@live.com>
+Date: Tue, 27 Mar 2018 22:41:06 -0400
+Subject: [PATCH] adding patch
+
+---
+ lakshman_V1.patch | 511 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 511 insertions(+)
+ create mode 100644 lakshman_V1.patch
+
+diff --git a/lakshman_V1.patch b/lakshman_V1.patch
+new file mode 100644
+index 0000000..c537f30
+--- /dev/null
++++ b/lakshman_V1.patch
+@@ -0,0 +1,511 @@
++Index: src/main/java/com/juxta/constants/CommonConstants.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/constants/CommonConstants.java	(revision )
+++++ src/main/java/com/juxta/constants/CommonConstants.java	(revision )
++@@ -0,0 +1,15 @@
+++package com.juxta.constants;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++public final class CommonConstants {
+++    private CommonConstants(){
+++    }
+++
+++    public static final String UNSUCCESSFUL = "unsuccessful";
+++    public static final String SUCCESSFUL = "successful";
+++    public static final String AUTH = "auth";
+++    public static final String ROLE = "role";
+++
+++}
++Index: src/main/java/com/juxta/models/LoginModel.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/models/LoginModel.java	(revision )
+++++ src/main/java/com/juxta/models/LoginModel.java	(revision )
++@@ -0,0 +1,25 @@
+++package com.juxta.models;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++public class LoginModel {
+++    private String email;
+++    private String password;
+++
+++    public String getEmail() {
+++        return email;
+++    }
+++
+++    public void setEmail(String email) {
+++        this.email = email;
+++    }
+++
+++    public String getPassword() {
+++        return password;
+++    }
+++
+++    public void setPassword(String password) {
+++        this.password = password;
+++    }
+++}
++Index: src/main/java/com/juxta/entities/ContactUs.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/entities/ContactUs.java	(revision )
+++++ src/main/java/com/juxta/entities/ContactUs.java	(revision )
++@@ -0,0 +1,73 @@
+++package com.juxta.entities;
+++
+++import javax.persistence.Entity;
+++import javax.persistence.GeneratedValue;
+++import javax.persistence.Id;
+++import javax.persistence.Table;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++
+++@Entity
+++@Table(name = "contactus")
+++public class ContactUs {
+++    @Id
+++    @GeneratedValue
+++    private int id;
+++    private String name;
+++    private String email;
+++    private String password;
+++    private String comments;
+++
+++    @Override
+++    public String toString() {
+++        return "ContactUs{" +
+++                "id=" + id +
+++                ", name='" + name + '\'' +
+++                ", email='" + email + '\'' +
+++                ", password='" + password + '\'' +
+++                ", comments='" + comments + '\'' +
+++                '}';
+++    }
+++
+++    public int getId() {
+++        return id;
+++    }
+++
+++    public void setId(int id) {
+++        this.id = id;
+++    }
+++
+++    public String getName() {
+++        return name;
+++    }
+++
+++    public void setName(String name) {
+++        this.name = name;
+++    }
+++
+++    public String getEmail() {
+++        return email;
+++    }
+++
+++    public void setEmail(String email) {
+++        this.email = email;
+++    }
+++
+++    public String getPassword() {
+++        return password;
+++    }
+++
+++    public void setPassword(String password) {
+++        this.password = password;
+++    }
+++
+++    public String getComments() {
+++        return comments;
+++    }
+++
+++    public void setComments(String comments) {
+++        this.comments = comments;
+++    }
+++}
++Index: src/main/java/com/juxta/services/LoginService.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/services/LoginService.java	(revision )
+++++ src/main/java/com/juxta/services/LoginService.java	(revision )
++@@ -0,0 +1,40 @@
+++package com.juxta.services;
+++
+++import com.juxta.models.LoginModel;
+++import com.juxta.repository.AdminRepository;
+++import org.springframework.beans.factory.annotation.Autowired;
+++import org.springframework.stereotype.Service;
+++
+++import javax.servlet.http.HttpServletRequest;
+++import javax.servlet.http.HttpServletResponse;
+++
+++import static com.juxta.constants.CommonConstants.AUTH;
+++import static com.juxta.constants.CommonConstants.UNSUCCESSFUL;
+++import static com.juxta.constants.CommonConstants.SUCCESSFUL;
+++import static com.juxta.constants.CommonConstants.ROLE;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++@Service
+++public class LoginService {
+++
+++    @Autowired
+++    private AdminRepository adminRepository;
+++
+++    public String verifyCredentials(LoginModel loginModel, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+++        String result = UNSUCCESSFUL;
+++
+++        try {
+++            if (loginModel.getPassword().equals(adminRepository.getPassword(loginModel.getEmail()))) {
+++                httpServletRequest.getSession().setAttribute(AUTH, SUCCESSFUL);
+++                httpServletRequest.getSession().setAttribute(ROLE, adminRepository.getRole(loginModel.getEmail()));
+++                return SUCCESSFUL;
+++            }
+++        } catch (Exception e) {
+++            e.printStackTrace();
+++        }
+++        return result;
+++    }
+++
+++}
++Index: src/main/java/com/juxta/filter/AuthorisationFilter.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/filter/AuthorisationFilter.java	(revision )
+++++ src/main/java/com/juxta/filter/AuthorisationFilter.java	(revision )
++@@ -0,0 +1,50 @@
+++package com.juxta.filter;
+++
+++import com.juxta.DAO.AdminDAO;
+++import org.jboss.logging.Logger;
+++
+++import javax.servlet.*;
+++import javax.servlet.http.HttpServletRequest;
+++import javax.servlet.http.HttpServletResponse;
+++import javax.servlet.http.HttpSession;
+++import java.io.IOException;
+++
+++import static com.juxta.constants.CommonConstants.AUTH;
+++import static com.juxta.constants.CommonConstants.ROLE;
+++import static com.juxta.constants.CommonConstants.SUCCESSFUL;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++public class AuthorisationFilter implements Filter {
+++    private static final Logger logger = Logger.getLogger(AuthorisationFilter.class);
+++
+++
+++    @Override
+++    public void init(FilterConfig filterConfig) throws ServletException {
+++        logger.debug(" In INIT() of " + this.getClass().getName());
+++    }
+++
+++    @Override
+++    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+++
+++        HttpServletRequest request = (HttpServletRequest) servletRequest;
+++        HttpServletResponse response = (HttpServletResponse) servletResponse;
+++
+++        HttpSession httpSession = request.getSession();
+++
+++        final String authLevel = (String) httpSession.getAttribute(AUTH);
+++        if (authLevel != null && authLevel.equals(SUCCESSFUL)) {
+++            final String role = (String) httpSession.getAttribute(ROLE);
+++            response.addHeader(ROLE,role);
+++        }
+++
+++        filterChain.doFilter(request, response);
+++
+++    }
+++
+++    @Override
+++    public void destroy() {
+++        logger.debug(" In destroy() of " + this.getClass().getName());
+++    }
+++}
++Index: src/main/java/com/juxta/repository/ContactUsRepo.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/repository/ContactUsRepo.java	(revision )
+++++ src/main/java/com/juxta/repository/ContactUsRepo.java	(revision )
++@@ -0,0 +1,13 @@
+++package com.juxta.repository;
+++
+++import com.juxta.entities.ContactUs;
+++import org.springframework.data.repository.CrudRepository;
+++
+++import java.util.List;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++public interface ContactUsRepo extends CrudRepository<ContactUs, Integer> {
+++    public List<ContactUs> findAll();
+++}
++Index: src/main/java/com/juxta/services/LogOffService.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/services/LogOffService.java	(revision )
+++++ src/main/java/com/juxta/services/LogOffService.java	(revision )
++@@ -0,0 +1,26 @@
+++package com.juxta.services;
+++
+++import org.springframework.stereotype.Service;
+++
+++import javax.servlet.http.HttpServletRequest;
+++import javax.servlet.http.HttpServletResponse;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++@Service
+++public class LogOffService {
+++
+++    public boolean logOffSession(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse){
+++        boolean response = false;
+++
+++        try {
+++            httpServletRequest.getSession().invalidate();
+++            response = true;
+++        }catch (Exception e){
+++            e.printStackTrace();
+++        }
+++        return response;
+++    }
+++
+++}
++Index: src/main/java/com/juxta/controllers/AdminController.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/controllers/AdminController.java	(revision )
+++++ src/main/java/com/juxta/controllers/AdminController.java	(revision )
++@@ -0,0 +1,8 @@
+++package com.juxta.controllers;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++//TODO
+++public class AdminController {
+++}
++Index: src/main/java/com/juxta/controllers/LogOffController.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/controllers/LogOffController.java	(revision )
+++++ src/main/java/com/juxta/controllers/LogOffController.java	(revision )
++@@ -0,0 +1,26 @@
+++package com.juxta.controllers;
+++
+++import com.juxta.services.LogOffService;
+++import org.springframework.beans.factory.annotation.Autowired;
+++import org.springframework.web.bind.annotation.RequestMapping;
+++import org.springframework.web.bind.annotation.RequestMethod;
+++import org.springframework.web.bind.annotation.RestController;
+++
+++import javax.servlet.http.HttpServletRequest;
+++import javax.servlet.http.HttpServletResponse;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/27/2018.
+++ */
+++
+++@RestController
+++public class LogOffController {
+++
+++    @Autowired
+++    private LogOffService logOffService;
+++
+++    @RequestMapping(value = "/logOff", method = RequestMethod.GET)
+++    public boolean logOffController(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+++        return logOffService.logOffSession(httpServletRequest, httpServletResponse);
+++    }
+++}
++Index: src/main/java/com/juxta/controllers/LoginController.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/controllers/LoginController.java	(revision )
+++++ src/main/java/com/juxta/controllers/LoginController.java	(revision )
++@@ -0,0 +1,29 @@
+++package com.juxta.controllers;
+++
+++import com.juxta.models.LoginModel;
+++import com.juxta.services.LoginService;
+++import org.springframework.beans.factory.annotation.Autowired;
+++import org.springframework.web.bind.annotation.RequestBody;
+++import org.springframework.web.bind.annotation.RequestMapping;
+++import org.springframework.web.bind.annotation.RequestMethod;
+++import org.springframework.web.bind.annotation.RestController;
+++
+++import javax.servlet.http.HttpServlet;
+++import javax.servlet.http.HttpServletRequest;
+++import javax.servlet.http.HttpServletResponse;
+++
+++/**
+++ * Created by Lakshman Bhupathi on 3/26/2018.
+++ */
+++@RestController
+++public class LoginController {
+++
+++    @Autowired
+++    LoginService loginService;
+++
+++    @RequestMapping(value = "login", method = RequestMethod.POST)
+++    public String verifyCredentials(@RequestBody LoginModel loginModel, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+++        return loginService.verifyCredentials(loginModel,httpServletRequest,httpServletResponse);
+++    }
+++
+++}
++Index: src/main/java/com/juxta/repository/AdminRepository.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/repository/AdminRepository.java	(date 1522121479000)
+++++ src/main/java/com/juxta/repository/AdminRepository.java	(revision )
++@@ -2,6 +2,7 @@
++ 
++ import java.util.List;
++ 
+++import org.springframework.data.jpa.repository.Query;
++ import org.springframework.data.repository.CrudRepository;
++ import org.springframework.stereotype.Repository;
++ 
++@@ -11,4 +12,10 @@
++ public interface AdminRepository extends CrudRepository<Admin,Integer> {
++ 	public List<Admin> findAll();
++ 	public Admin save(Admin admin);
+++
+++	@Query(value = "SELECT password FROM admin where email=?1",nativeQuery = true)
+++	public String getPassword(String email);
+++
+++	@Query(value = "SELECT role FROM admin where email=?1",nativeQuery = true)
+++	public String getRole(String email);
++ }
++Index: src/main/java/com/juxta/entities/Admin.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/entities/Admin.java	(date 1522121479000)
+++++ src/main/java/com/juxta/entities/Admin.java	(revision )
++@@ -18,9 +18,16 @@
++ 	private String phone;
++ 	private String dob;
++ 	private String password;
+++	private String role;
++ 
++-	
++-	
+++	public String getRole() {
+++		return role;
+++	}
+++
+++	public void setRole(String role) {
+++		this.role = role;
+++	}
+++
++ 	public int getAdminId() {
++ 		return adminId;
++ 	}
++@@ -79,8 +86,15 @@
++ 
++ 	@Override
++ 	public String toString() {
++-		return "Admin [adminId=" + adminId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
++-				+ ", phone=" + phone + ", dob=" + dob + ", password=" + password + "]";
+++		return "Admin{" +
+++				"adminId=" + adminId +
+++				", firstName='" + firstName + '\'' +
+++				", lastName='" + lastName + '\'' +
+++				", email='" + email + '\'' +
+++				", phone='" + phone + '\'' +
+++				", dob='" + dob + '\'' +
+++				", password='" + password + '\'' +
+++				", role='" + role + '\'' +
+++				'}';
++ 	}
++-
++ }
++Index: src/main/java/com/juxta/services/AdminService.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/services/AdminService.java	(date 1522121479000)
+++++ src/main/java/com/juxta/services/AdminService.java	(revision )
++@@ -1,6 +1,6 @@
++ package com.juxta.services;
++ 
++-import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
+++//import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
++ 
++ import java.util.ArrayList;
++ import java.util.List;
++Index: src/main/java/com/juxta/JuxtaApplication.java
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++--- src/main/java/com/juxta/JuxtaApplication.java	(date 1522121479000)
+++++ src/main/java/com/juxta/JuxtaApplication.java	(revision )
++@@ -1,7 +1,12 @@
++ package com.juxta;
++ 
+++import com.juxta.filter.AuthorisationFilter;
++ import org.springframework.boot.SpringApplication;
++ import org.springframework.boot.autoconfigure.SpringBootApplication;
+++import org.springframework.boot.web.servlet.FilterRegistrationBean;
+++import org.springframework.context.annotation.Bean;
+++
+++import javax.servlet.Filter;
++ 
++ @SpringBootApplication
++ public class JuxtaApplication {
++@@ -9,4 +14,19 @@
++ 	public static void main(String[] args) {
++ 		SpringApplication.run(JuxtaApplication.class, args);
++ 	}
+++
+++	@Bean
+++	public FilterRegistrationBean someFilterRegistration() {
+++		FilterRegistrationBean registration = new FilterRegistrationBean();
+++		registration.setFilter(getAuthorisationFilter());
+++		registration.addUrlPatterns("/*");
+++//		registration.addInitParameter("paramName", "paramValue");
+++		registration.setName("AuthorisationFilter");
+++		registration.setOrder(1);
+++		return registration;
+++	}
+++
+++	public Filter getAuthorisationFilter() {
+++		return new AuthorisationFilter();
+++	}
++ }
+-- 
+2.14.1.windows.1
+
