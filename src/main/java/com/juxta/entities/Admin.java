@@ -18,9 +18,16 @@ public class Admin {
 	private String phone;
 	private String dob;
 	private String password;
+	private String role;
 
-	
-	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public int getAdminId() {
 		return adminId;
 	}
@@ -79,8 +86,15 @@ public class Admin {
 
 	@Override
 	public String toString() {
-		return "Admin [adminId=" + adminId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phone=" + phone + ", dob=" + dob + ", password=" + password + "]";
+		return "Admin{" +
+				"adminId=" + adminId +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
+				", dob='" + dob + '\'' +
+				", password='" + password + '\'' +
+				", role='" + role + '\'' +
+				'}';
 	}
-
 }
