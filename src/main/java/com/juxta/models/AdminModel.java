@@ -9,6 +9,7 @@ public class AdminModel {
 	private String phone;
 	private String dob;
 	private String password;
+	private String role;
 
 	public int getAdminId() {
 		return adminId;
@@ -68,10 +69,25 @@ public class AdminModel {
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "AdminModel [adminId=" + adminId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
-				+ email + ", phone=" + phone + ", dob=" + dob + ", password=" + password + "]";
+	public String getRole() {
+		return role;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "AdminModel{" +
+				"adminId=" + adminId +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", phone='" + phone + '\'' +
+				", dob='" + dob + '\'' +
+				", password='" + password + '\'' +
+				", role='" + role + '\'' +
+				'}';
+	}
 }

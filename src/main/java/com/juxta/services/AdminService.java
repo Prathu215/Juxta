@@ -38,6 +38,7 @@ public class AdminService {
 		admin.setLastName(adminModel.getLastName());
 		admin.setPassword(adminModel.getPassword());
 		admin.setPhone(adminModel.getPhone());
+		admin.setRole(adminModel.getRole());
 		
 		return admin;
 	}
@@ -50,6 +51,8 @@ public class AdminService {
 		adminModel.setLastName(admin.getLastName());
 		adminModel.setPassword(admin.getPassword());
 		adminModel.setPhone(admin.getPhone());
+		adminModel.setRole(admin.getRole());
+
 		return adminModel;
 	}
 
