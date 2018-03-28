@@ -21,7 +21,7 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String verifyCredentials(@RequestBody LoginModel loginModel, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         return loginService.verifyCredentials(loginModel,httpServletRequest,httpServletResponse);
     }
