@@ -2,7 +2,6 @@ package com.juxta.repository;
 
 import com.juxta.entities.ContactUs;
 import org.springframework.data.repository.CrudRepository;
-
 import java.util.List;
 
 /**
