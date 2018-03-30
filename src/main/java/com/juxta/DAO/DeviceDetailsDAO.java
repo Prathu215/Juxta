@@ -1,5 +1,4 @@
 package com.juxta.DAO;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,6 @@ public class DeviceDetailsDAO implements IDeviceDetailsDAO {
 	@Override
 	public List<DeviceDetails> getDeviceDetails() {
 		// TODO Auto-generated method stub
-		
 		return this.deviceDetailsRepository.findAll();
 	}
-
-
-
 }

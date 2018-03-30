@@ -1,14 +1,15 @@
 package com.juxta.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "devicedetails")
 public class DeviceDetails {
-	
 	@Id
+	@GeneratedValue
 	private int deviceId;
 	private String brand;
 	private String series;
@@ -16,7 +17,7 @@ public class DeviceDetails {
 	private String type;
 	private int ram;
 	private int hdd;
-	private int processor;
+	private String processor;
 	private double screensize;
 	private int batterypower;
 	private int usbslots;
@@ -77,11 +78,13 @@ public class DeviceDetails {
 		this.hdd = hdd;
 	}
 
-	public int getProcessor() {
+	
+
+	public String getProcessor() {
 		return processor;
 	}
 
-	public void setProcessor(int processor) {
+	public void setProcessor(String processor) {
 		this.processor = processor;
 	}
 
