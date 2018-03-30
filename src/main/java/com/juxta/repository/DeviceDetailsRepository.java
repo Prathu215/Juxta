@@ -8,8 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.juxta.entities.DeviceDetails;
 
 @Repository
-public interface DeviceDetailsRepository  extends CrudRepository<DeviceDetails,Integer>{
+public interface DeviceDetailsRepository extends CrudRepository<DeviceDetails,Integer> {
+	
 	public List<DeviceDetails> findAll();
-	public List<DeviceDetails> findByBrand(String name);
+	public List<DeviceDetails> findByBrand(String brand);
 
 }

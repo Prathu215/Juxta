@@ -2,6 +2,7 @@ package com.juxta.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +12,12 @@ import com.juxta.services.DeviceDetailsService;
 @RestController
 public class DeviceDetailsController {
 	
+	@Autowired
 	private DeviceDetailsService deviceDetailsService;
 	
 	@RequestMapping("/devicedetails")
 	public List<DeviceDetails> getDeviceDetails() {
-		return this.deviceDetailsService.getDeviceDetails();		
+		return this.deviceDetailsService.getDeviceDetails();
 	}
 	
 	@RequestMapping("/devicedetails/{name}")

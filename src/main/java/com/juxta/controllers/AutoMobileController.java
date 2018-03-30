@@ -28,8 +28,14 @@ public class AutoMobileController {
 	@RequestMapping(value="/automobiles",method=RequestMethod.POST)	
 	public List<AutoMobileModel> addAutoMobile(@RequestBody AutoMobileModel autoMobile) {
 		logger.info("Entry to post method, printing automobile model:"+autoMobile);
-		List<AutoMobileModel> autoMobileModelList=new ArrayList<AutoMobileModel>();
-		autoMobileModelList.add(this.autoMobileService.addAutoMobile(autoMobile));
+		List<AutoMobileModel> autoMobileModelList=null;
+		try {
+			autoMobileModelList = new ArrayList<AutoMobileModel>();
+			autoMobileModelList.add(this.autoMobileService.addAutoMobile(autoMobile));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return autoMobileModelList;    
 	}
 }

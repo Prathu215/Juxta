@@ -18,6 +18,11 @@ public class DeviceDetailsService {
 		return this.iDeviceDetailsDAO.getDeviceDetails();
 	}
 	
+	public List<DeviceDetails> getDeviceDetailsByBrand(){
+		return null;
+		
+	}
+	
 
 	
 }
