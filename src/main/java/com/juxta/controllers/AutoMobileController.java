@@ -14,8 +14,7 @@ import com.juxta.services.AutoMobileService;
 
 @RestController
 public class AutoMobileController {
-	Logger logger=Logger.getLogger(AutoMobileController.class);
-	
+	Logger logger=Logger.getLogger(AutoMobileController.class);	
 	
 	@Autowired
 	private AutoMobileService autoMobileService;
