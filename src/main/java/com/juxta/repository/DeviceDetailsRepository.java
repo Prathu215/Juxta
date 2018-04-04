@@ -12,5 +12,6 @@ public interface DeviceDetailsRepository extends CrudRepository<DeviceDetails,In
 	
 	public List<DeviceDetails> findAll();
 	public List<DeviceDetails> findByBrand(String brand);
+	public List<DeviceDetails> findBySeries(String series);
 
 }

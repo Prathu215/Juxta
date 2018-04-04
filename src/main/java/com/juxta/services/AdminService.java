@@ -1,8 +1,5 @@
 package com.juxta.services;
-
-//import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
-
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;

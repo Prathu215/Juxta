@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import com.juxta.models.ElectronicsModel;
 import com.juxta.services.ElectronicsService;
 
 @RestController
+@CrossOrigin
 public class ElectronicsController {
 
 	Logger logger = Logger.getLogger(AutoMobileController.class);

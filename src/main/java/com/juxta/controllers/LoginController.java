@@ -3,6 +3,7 @@ package com.juxta.controllers;
 import com.juxta.models.LoginModel;
 import com.juxta.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by Lakshman Bhupathi on 3/26/2018.
  */
 @RestController
+@CrossOrigin
 public class LoginController {
 
     @Autowired

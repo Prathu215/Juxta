@@ -26,8 +26,9 @@ public class DeviceDetailsDao implements IDeviceDetailsDAO {
 		return deviceDetailsRepository.findByBrand(brand);
 	}
 
-	
-	
-	
+	@Override
+	public List<DeviceDetails> getDeviceDetailsBySeries(String series){
+		return deviceDetailsRepository.findBySeries(series);
+	}
 
 }
