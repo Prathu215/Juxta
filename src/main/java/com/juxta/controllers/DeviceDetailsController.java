@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.juxta.entities.DeviceDetails;
 import com.juxta.services.DeviceDetailsService;
 
+
+
 @RestController
 @CrossOrigin
 public class DeviceDetailsController {
