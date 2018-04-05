@@ -8,6 +8,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cardetails")
 public class CarDetails {
+	
 	@Id
 	@GeneratedValue
 	private int carId;
