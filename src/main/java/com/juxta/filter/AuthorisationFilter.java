@@ -14,7 +14,7 @@ import static com.juxta.constants.CommonConstants.ROLE;
 import static com.juxta.constants.CommonConstants.SUCCESSFUL;
 
 /**
- * Created by Lakshman Bhupathi on 3/27/2018.
+ * Created  on 3/27/2018.
  */
 public class AuthorisationFilter implements Filter {
     private static final Logger logger = Logger.getLogger(AuthorisationFilter.class);

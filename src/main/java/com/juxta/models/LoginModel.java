@@ -1,7 +1,7 @@
 package com.juxta.models;
 
 /**
- * Created by Lakshman Bhupathi on 3/27/2018.
+ * Created on 3/27/2018.
  */
 public class LoginModel {
     private String email;

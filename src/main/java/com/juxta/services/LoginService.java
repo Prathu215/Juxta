@@ -14,7 +14,7 @@ import static com.juxta.constants.CommonConstants.SUCCESSFUL;
 import static com.juxta.constants.CommonConstants.ROLE;
 
 /**
- * Created by Lakshman Bhupathi on 3/27/2018.
+ * Created on 3/27/2018.
  */
 @Service
 public class LoginService {
